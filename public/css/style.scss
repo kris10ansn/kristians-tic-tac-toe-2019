@@ -1,0 +1,543 @@
+* {
+	margin: 0;
+	padding: 0;
+
+	box-sizing: border-box;
+
+	user-select: none;
+
+	color: white;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+html {
+	width: 100vw;
+	height: 100vh;
+
+	overflow: hidden;
+
+	background-color: #161616;
+}
+
+div.page:not(.active){
+	display: none !important;
+}
+
+div.center {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+*:focus { outline: none; }
+
+button {
+	border: none;
+	background-color: #3376db;
+
+	font-size: 15px;
+	border-radius: 6px;
+	
+	padding: 8px;
+	margin-bottom: 10px;
+	
+	
+	cursor: pointer;
+
+	&:active {
+		background-color: #1e5ab4
+	}
+}
+
+div.loading {
+	--f-size: 60px;
+
+	@keyframes pulsing {
+		from {
+			opacity: 1;
+		}
+
+		50% {
+			opacity: 0.5;
+			font-size: calc(var(--f-size) + 5px);
+		}
+
+		to {
+			opacity: 1;
+		}
+	}
+
+	h1 {
+		position: absolute;
+		top: 50vh;
+		left: 50vw;
+		transform: translate(-50%, -50%);
+
+		font-size: var(--f-size);
+
+		animation: pulsing 2s ease-in-out infinite;
+
+	
+		@media screen and (max-width: 500px) {
+			--f-size: 40px;
+		}
+	}
+}
+
+div.loading:not(.active) {
+	@keyframes fade-out {
+		from {
+			opacity: 1;
+		}
+		to {
+			opacity: 0;
+		}
+	}
+	display: initial !important;
+	animation: fade-out .5s ease forwards;
+}
+
+div.log-in {
+	div.log-in-methods {
+		position: absolute;
+		top: 50vh;
+		left: 50vw;
+		transform: translate(-50%, -50%);
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		a.login button {
+			width: 300px;
+
+			display: flex;
+
+			border: 3px solid #0008;
+
+			background-color: white;
+			
+			font-size: 24px;
+			
+			div.text {
+				padding: 0 10px;
+				transform: translateY(-6.25%);
+				color: black;
+			}
+
+			img {
+				transform: translateY(12.5%);
+				height: 24px;
+			}
+
+			&:active {
+				background-color: #fffc;
+			}
+		}
+	}
+}
+
+div.lobby-selector {
+	position: absolute;
+	left: 50vw;
+	transform: translateX(-50%);
+	top: 10vh;
+	
+	text-align: center;
+	
+	$header-fs: 50px;
+	h1 {
+		margin: 20px;
+		font-size: $header-fs;
+	}
+	
+	div.lobbies-wrapper {
+		max-height: calc(90vh - 180px);
+		overflow-y: auto;
+		border-radius: 7px;
+		margin: 10px 0;
+		
+		div.lobbies {
+			text-align: left;
+			display: flex;
+			flex-direction: column-reverse;
+			align-items: center;
+
+			background-color: white;
+			// border-radius: 7px;
+			
+			min-width: calc(50vw + 32px);
+
+			&:empty::after {
+				content: "Lobbies will appear here";
+				color: gray;
+			}
+			&:empty {
+				padding: 7px 0;
+			}
+
+
+			div.lobby {
+				background-color: #ededed;
+				width: 100%;
+				margin: 6px 0;
+				padding: 20px;
+
+				cursor: pointer;
+
+				user-select: none;
+
+				&:hover {
+					background-color: #ddd;
+				}
+				&:active {
+					background-color: #CCC;
+				}
+
+
+				div.info {
+					* {
+						color: black;
+					}
+
+					padding: 0 10%;
+				}
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 1250px) {
+	div.lobbies {
+		width: 70vw;
+	}
+}
+div.create-game {
+	user-select: none;
+	position: absolute;
+
+	width: 30vmax;
+	// min-height: 60vmin;
+	$padding: 20px;
+	padding: $padding;
+
+	overflow-y: auto;
+	border-radius: 10px;
+	top: 50vh;
+	left: 50vw;
+	transform: translate(-50%, -50%);
+	
+	background-color: white;
+
+	div.title {
+		background-color: #039be5;
+		width: calc(100% + #{$padding * 2});
+		transform: translate(-#{$padding}, -#{$padding});
+		height: 175px;
+
+		padding: 15px 40px;
+		padding-top: 40px;
+
+		h1 {
+			font-size: 50px;
+			position: absolute;
+			bottom: $padding;
+
+			@media screen and (max-width: 480px) {
+				font-size: 40px;
+			}
+		}
+		@media screen and (max-width: 380px) {
+			h1 {
+				font-size: 30px;
+			}
+			height: 140px;
+		}
+	}
+
+	div.options {
+		*{color:black;}
+		padding: 20px;
+		$fsize: 28px;
+
+		margin-bottom: 20px;
+		
+		p {
+			font-size: $fsize;
+			margin-bottom: 20px;
+
+			@media screen and (max-width: 400px) {
+				font-size: $fsize - 5px;
+			}
+			@media screen and (max-width: 330px) {
+				font-size: $fsize - 7px;
+			}
+		}
+
+		div.text-input {
+			display: flex;
+			flex-direction: column;
+			width: 100%;
+
+			input[type="text"] {
+				font-size: $fsize - 5px;
+				border: 1px solid #0004;
+				border-radius: 4px;
+				padding: 6px;
+				box-sizing: border-box;
+				color: #000c;
+				// display: inline-block;
+	
+				margin: 20px 0;
+
+				width: 40%;
+	
+				&:focus {
+					outline: none;
+				}
+			}
+
+			input#title {
+				font-size: $fsize + 10px;
+				width: 100%;
+				border: none;
+				border-bottom: 1px solid #0004;
+
+				@media screen and (max-width: 400px) {
+					font-size: $fsize + 5px;
+				}
+			}
+		}
+
+		color {
+			$size: $fsize + 7px;
+			width: $size;
+			height: $size;
+
+			cursor: pointer;
+
+			display: inline-block;
+
+			transform: translateY(20%);
+
+			border: 6px solid #eee;
+			border-radius: 2.5px;
+
+			&[red] {
+				background-color: red;
+			}
+			&[blue] {
+				background-color: #3376db;
+			}
+
+			transition: background-color .4s ease;
+		}
+
+		select.opponent {
+			font-size: $fsize - 7px;
+			border: 1px solid #0004;
+			border-radius: 4px;
+			padding: 6px;
+			box-sizing: border-box;
+			color: #000c;
+
+			@media screen and (max-width: 430px) {
+				max-width: 100px;
+			}
+		}
+	}
+
+	div.actions {
+		position: absolute;
+		bottom: $padding/2;
+		right: $padding;
+
+		button {
+			font-size: 20px;
+			margin: 0 4px;
+
+			&.cancel {
+				background-color: transparent;
+				color: #000a;
+
+				&:hover {
+					background-color: #0001;
+				}
+				&:active {
+					background-color: #0002;
+				}
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 1700px) {
+	div.create-game {
+		width: 40vw;
+	}
+}
+
+@media screen and (max-width: 1300px) {
+	div.create-game {
+		width: 60vw;
+		// height: 70vh;
+	}
+}
+
+@media screen and (max-width: 1200px) {
+	div.create-game {
+		width: 70vw;
+	}
+}
+
+@media screen and (max-width: 650px) {
+	div.create-game {
+		width: 90vw;
+	}
+}
+
+div.game {
+	position: absolute;
+	top: 47vh;
+	left: 50vw;
+	transform: translate(-50%, -50%);
+
+	div.panel {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-evenly;
+
+		button {
+			display: flex;
+			flex-direction: row;
+
+			text-align: center;
+
+			border: none;
+	
+			color: white;
+
+			font-size: 4vmin;
+
+			padding: 7px 40px;
+			border-radius: 3px;
+
+			user-select: none;
+			
+			$s: 6px;
+
+			&.reset {
+				background-color: #3376dbee;
+				box-shadow: 0 $s 0px #3376db44;
+			}
+
+			div.icon {
+				padding-left: 5px;
+
+				&.edit {
+					transform: translateY(-10%);
+				}
+			}
+
+			&:focus {
+				outline: none;
+
+				div.icon {
+					@keyframes spin {
+						from {
+							transform: rotate(0deg);
+						}
+						to {
+							transform: rotate(-360deg);
+						}
+					}
+					animation: spin 0.4s ease-in-out;
+
+				}
+			}
+
+			&:active {
+				transform: translateY($s);
+				box-shadow: none;
+			}
+		}
+	}
+
+	table.board {
+		$p1color: #3376db;
+		$p2color: red;
+
+		$cell-size: 20vmin;
+
+		position: relative;
+
+		margin-top: 5vh;
+	
+		border: 5px solid white;
+		border-radius: 7px;
+		padding: 3px;
+
+		transition: all 0.2s ease-in-out;
+
+		$border-spacing: 11px;
+
+		&.p1-win {
+			border-color: $p1color;
+			border-spacing: $border-spacing;
+		}
+
+		&.p2-win {
+			border-color: $p2color;
+			border-spacing: $border-spacing;
+		}
+
+		&.draw {
+			border-spacing: $border-spacing;
+			border-color: palevioletred;
+		}
+
+		&.p1-win, &.p2-win, &.draw {
+			td.cell {
+				width: $cell-size - .6vmin !important;
+				height: $cell-size - .6vmin !important;
+			}
+		}
+
+		tr.row {
+			display: flex;
+			flex-direction: row;
+	
+			td.cell {
+				width: $cell-size;
+				height: $cell-size;
+				background-color: white;
+	
+				border-radius: 5px;
+	
+				margin: 1%;
+	
+				transition: all ease .4s;
+
+				&.p1 {
+					background-color: $p1color;
+				}
+
+				&.p2 {
+					background-color: $p2color;
+				}
+			}
+		}
+	}
+
+	div.status-wrapper {
+		width: 100%;
+
+		position: absolute;
+		margin-top: 7%;
+
+		p.status {
+			text-align: center;
+			font-size: 3vmin;
+
+			color: #fff5;
+		}
+	}
+}

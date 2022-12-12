@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+	<head>
+		<title>Kristian's TicTacToe</title>
+		<link rel="stylesheet" href="./css/style.css">
+		<meta content="width=device-width, initial-scale=1" name="viewport" />
+
+		<!-- update the version number as needed -->
+		<script defer src="/__/firebase/5.11.0/firebase-app.js"></script>
+		<!-- include only the Firebase features as you need -->
+		<script defer src="/__/firebase/5.11.0/firebase-auth.js"></script>
+		<script defer src="/__/firebase/5.11.0/firebase-firestore.js"></script>
+		<script defer src="/__/firebase/5.11.0/firebase-database.js"></script>
+		<!-- initialize the SDK after all desired features are loaded -->
+		<script defer src="/__/firebase/init.js"></script>
+		
+		<script defer src="../js/main/main.js" type="module"></script>
+		<script>
+			document.addEventListener("DOMContentLoaded", event => {
+				window.firebase = firebase
+			})
+		</script>
+	</head>
+	<body>
+		<div class="content">
+			<div class="active page loading">
+				<h1>Loading...</h1>
+			</div>
+			<div class="page log-in">
+				<div class="log-in-methods">
+					<a do="login" class="google-login login">
+						<button class="google-login">
+							<img
+								src="images/Google-logo.png"
+								alt="G"
+							>
+							<div class="text">Sign in with google</div>
+						</button>
+					</a>
+					<a do="login" class="anonymous-login login">
+						<button class="anonymous-login">
+							<img
+								src="images/anonymous-logo.png"
+								alt="A"
+							>
+							<div class="text">Sign in as guest</div>
+						</button>
+					</a>
+				</div>
+			</div>
+
+			<div class="page lobby-selector">
+				<h1>Lobbies</h1>
+				<a to="create-game">
+					<button class="new-game">+ New Game</button>
+				</a>
+				<div class="lobbies-wrapper">
+					<div class="lobbies"></div>
+				</div>
+			</div>
+
+			<div class="page create-game">
+				<div class="title">
+					<h1>Create Game</h1>
+				</div>
+				<div class="options">
+					<div class="text-input">
+						<input 
+							id="title" 
+							type="text" 
+							placeholder="Lobby Title" 
+							autocomplete="off"
+							spellcheck="false"
+						>
+					</div>
+
+					<p>Your color: 
+						<color 
+							blue 
+							onclick="
+								this.toggleAttribute('red');this.toggleAttribute('blue');
+							"
+						></color>
+					</p>
+					<p>Opponent: 
+						<select class="opponent">
+							<option>Online Player</option>
+							<option>Computer AI</option>
+							<option>Local player</option>
+						</select>
+					</p>
+				</div>
+				<div class="actions">
+					<a to="lobby-selector">
+						<button class="cancel">Cancel</button>
+					</a>
+					<button class="create">Create</button>
+				</div>
+			</div>
+
+			<div class="page game">
+				<div class="board">
+					<!-- Output div for games -->
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
